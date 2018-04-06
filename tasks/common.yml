@@ -1,0 +1,36 @@
+---
+
+- name: remove topdir
+  file:
+      dest={{ topdir }}
+      state=absent
+
+- name: create topdir
+  file:
+      dest={{ topdir }}
+      state=directory
+      mode=0755
+
+- name: create pkgsdir
+  file:
+      dest={{ pkgsdir }}
+      state=directory
+      mode=0755
+
+- name: create builddir
+  file:
+      dest={{ builddir }}
+      state=directory
+      mode=0755
+
+- name: create outputdir
+  file:
+      dest={{ outputdir }}
+      state=directory
+      mode=0755
+
+- name: create inputdir
+  file:
+      dest={{ inputdir }}
+      state=directory
+      mode=0755

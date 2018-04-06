@@ -1,0 +1,12 @@
+---
+# tasks file for makeiso
+
+- import_tasks: common.yml
+
+- name: install dependencies
+  apt:
+      name=genisoimage
+      state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- include_tasks: "{{ OS }}.yml"

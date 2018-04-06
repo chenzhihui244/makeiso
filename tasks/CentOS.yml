@@ -1,0 +1,45 @@
+---
+# tasks file for makeiso
+
+- name: mount iso
+  shell:
+      mount {{ centos_iso }} {{ inputdir }}
+      #mount:
+      #path={{ inputdir }}
+      #src={{ iso }}
+      #fstype=iso9660
+      #opts=ro
+      #state=mounted
+
+- name: copy iso
+  shell:
+      rsync -a -H --exclude=TRANS.TBL {{ inputdir }}/ {{ outputdir }}
+
+      #- name: copy diskinfo
+      #shell:
+      #cp {{ inputdir }}/.discinfo {{ outputdir }}
+
+- name: copy ks
+  template:
+      src=centos-ks-{{ REPO }}.cfg
+      dest={{ outputdir }}/ks.cfg
+
+- name: copy grub.cfg
+  template:
+      src=grub.cfg
+      dest={{ outputdir }}/EFI/BOOT/grub.cfg
+
+- name: umount iso
+  shell:
+      umount {{ inputdir }}
+      #mount:
+      #path={{ inputdir }}
+      #src={{ iso }}
+      #opts=ro
+      #state=umounted
+
+- name: generate iso
+  shell:
+      cd {{ outputdir }};
+      genisoimage -e images/efiboot.img -no-emul-boot -J -R -c boot.catalog -hide boot.catalog -hide image/efiboot.img -V "{{ Label }}" -o ../{{ Label }}.iso .
+
