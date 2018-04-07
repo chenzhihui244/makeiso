@@ -2,14 +2,12 @@
 # tasks file for makeiso
 
 - name: mount iso
-  shell:
-      mount {{ centos_iso }} {{ inputdir }}
-      #mount:
-      #path={{ inputdir }}
-      #src={{ iso }}
-      #fstype=iso9660
-      #opts=ro
-      #state=mounted
+  mount:
+      path="{{ inputdir }}"
+      src="{{ centos_iso }}"
+      fstype=iso9660
+      opts=ro
+      state=mounted
 
 - name: copy iso
   shell:
@@ -30,13 +28,9 @@
       dest={{ outputdir }}/EFI/BOOT/grub.cfg
 
 - name: umount iso
-  shell:
-      umount {{ inputdir }}
-      #mount:
-      #path={{ inputdir }}
-      #src={{ iso }}
-      #opts=ro
-      #state=umounted
+  mount:
+      path="{{ inputdir }}"
+      state=unmounted
 
 - name: generate iso
   shell:
