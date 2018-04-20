@@ -1,7 +1,7 @@
 ---
 # defaults file for makeiso
 centos_net_iso: /root/CentOS-7-aarch64-NetInstall.iso
-centos_ful_iso: CentOS-7-aarch64-Everything.iso
+centos_ful_iso: /root/CentOS-7-aarch64-Everything.iso
 centos_iso: "{{ centos_net_iso }}"
 Label: CentOS-7.4-aarch64
 OS: CentOS #CentOS Redhat Ubuntu Deepin
